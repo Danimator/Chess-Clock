@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>Chess Clock</title>
+		<link href="https://fonts.googleapis.com/css?family=Orbitron|Roboto" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="scripts/hammer-time.min.js"></script>
+	</head>
+	<body>
+		<div id='UI'>
+			<div id='options'>
+				<div id='menuButton' class='button'>
+					<i class="fa fa-cog" aria-hidden="true"></i>
+				</div>
+				<div id='pauseButton' class='button' onclick='pauseGame()'>
+					<i id='pauseIcon' class="fa fa-play" aria-hidden="true"></i>
+				</div>
+				<div id='resetButton' class='button' onclick='restart()'>
+					<i class="fa fa-repeat" aria-hidden="true"></i>
+				</div>
+			</div>
+			<div id='pressA' class='press' onclick='switchClock(0);'>
+				<p id='timeA' class='time'>12:05:21</p>
+			</div>
+			<div id='pressB' class='press' onclick='switchClock(1);'>
+				<p id='timeB' class='time'>12:05:12</p>
+			</div>
+		</div>
+		<script>
+			var switchAud = new Audio('audio/switch.wav');
+
+			function switchSound(){
+				switchAud.play();
+			}
+			
+			var pause = false;
+			
+			var A = 0;
+			var B = 1;
+			var NONE = -1;
+			var END = -2;
+			var SEC = 1000;
+			var MIN = 60*SEC;
+			var HR = 60*MIN;
+			
+			var active = NONE;
+			
+			// Represents user-set times for players A & B
+			var initTimes = [[0, 12, 2], [0, 12, 2]]; 
+			
+			var times = [2*SEC,2*SEC];
+			
+			function formatTime(x){
+				var seconds =(x%MIN);
+				var minutes = (x%HR)-seconds;
+				var hours = Math.floor((x-minutes-seconds)/HR);
+				minutes = Math.floor(minutes/MIN);
+				seconds = Math.floor(seconds/SEC);
+				
+				var message = [hours.toString(), minutes.toString(), seconds.toString()];
+
+				for (var i =0; i<3; i++){
+					if(message[i].length < 2){
+						message[i] = "0" + message[i];
+					}
+				}
+				return message;
+			}
+			
+			function gameEnd(){
+				document.getElementById("pressA").classList.add("pressed");
+				document.getElementById("pressB").classList.add("pressed");
+				active = -2;
+				document.getElementById("pauseIcon").classList.remove("fa-pause");
+				document.getElementById("pauseIcon").classList.add("fa-play");
+			}
+			
+			function countDown(x){
+				if(times[x]==0){
+					gameEnd();
+				} else {
+					if(!pause && (x==active || active == NONE)){
+						setTimeout(function(){
+							times[x] -= 100;
+							var newDisplay = formatTime(times[x]);
+							if(x==A){
+								if(newDisplay[0] == "00"){
+									document.getElementById("timeA").innerHTML = newDisplay[1]+":"+newDisplay[2];
+								} else {
+									document.getElementById("timeA").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
+								}
+							} else {
+								if(newDisplay[0] == "00"){
+									document.getElementById("timeB").innerHTML = newDisplay[1]+":"+newDisplay[2];
+								} else {
+									document.getElementById("timeB").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
+								}
+							}
+							countDown(x);
+						},100);
+					}
+				}
+			}
+			
+			function switchClock(x){
+				if ((!pause && (active != B && active != END && x==A)) || (pause && active == NONE && x==A)){
+					switchSound();
+					if(pause) { pause = false; }
+					document.getElementById("pauseIcon").classList.add("fa-pause");
+					document.getElementById("pauseIcon").classList.remove("fa-play");
+					
+					document.getElementById("pressB").classList.remove("pressed");
+					document.getElementById("pressA").classList.add("pressed");
+					active = B;
+					countDown(B);
+				} else if((!pause && (active != A && active != END && x==B )) || (pause && active == NONE && x==B)){
+					switchSound();
+					if(pause) { pause = false; }
+					document.getElementById("pauseIcon").classList.add("fa-pause");
+					document.getElementById("pauseIcon").classList.remove("fa-play");
+					
+					document.getElementById("pressA").classList.remove("pressed");
+					document.getElementById("pressB").classList.add("pressed");
+					active = A;
+					countDown(A);
+				}
+			}
+			
+			function restart(){
+				active = NONE;
+				pause = true;
+				setTimeout(function(){
+					document.getElementById("pressA").classList.remove("pressed");
+					document.getElementById("pressB").classList.remove("pressed");
+					var newDisplay = formatTime(initTimes[A][0]*HR + initTimes[A][1]*MIN + initTimes[A][2]*SEC);
+					times[A] = initTimes[A][0]*HR + initTimes[A][1]*MIN + initTimes[A][2]*SEC;
+					if(newDisplay[0] == "00"){
+						document.getElementById("timeA").innerHTML = newDisplay[1]+":"+newDisplay[2];
+					} else {
+						document.getElementById("timeA").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
+					}
+					
+					newDisplay = formatTime(initTimes[B][0]*HR + initTimes[B][1]*MIN + initTimes[B][2]*SEC);
+					times[B] = initTimes[B][0]*HR + initTimes[B][1]*MIN + initTimes[B][2]*SEC;
+					if(newDisplay[0] == "00"){
+						document.getElementById("timeB").innerHTML = newDisplay[1]+":"+newDisplay[2];
+					} else {
+						document.getElementById("timeB").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
+					}
+					document.getElementById("pauseIcon").classList.remove("fa-pause");
+					document.getElementById("pauseIcon").classList.add("fa-play");
+				}, 101);
+			}
+			
+			function pauseGame(){
+				if(active == END){
+					restart();
+				} else if(!pause && (active == A || active == B)){
+					pause = true;
+					document.getElementById("pauseIcon").classList.remove("fa-pause");
+					document.getElementById("pauseIcon").classList.add("fa-play");
+				} else if(pause && active==NONE){
+					// Do nothing
+				} else {
+					pause = false;
+					document.getElementById("pauseIcon").classList.add("fa-pause");
+					document.getElementById("pauseIcon").classList.remove("fa-play");
+					if(active == A){
+						countDown(A);
+					} else if(active==B){
+						countDown(B);
+					}
+				}
+			}
+			
+			restart();
+		</script>
+	</body>
+</html>
