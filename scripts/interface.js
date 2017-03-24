@@ -135,6 +135,8 @@ function switchClock(x){
 		if(active != NONE){
 			times[A] += inc*1000
 		}
+		active = B;
+		
 		switchSound1();
 		if(pause) { pause = false; }
 		document.getElementById("pauseIcon").classList.add("fa-pause");
@@ -142,13 +144,14 @@ function switchClock(x){
 		
 		document.getElementById("pressB").classList.remove("pressed");
 		document.getElementById("pressA").classList.add("pressed");
-		active = B;
+
 		countDown(B);
 	} else if((!pause && (active != A && active != END && x==B )) || (pause && active == NONE && x==B)){
 		numberOfClicks += 1;
 		if(active != NONE){
 			times[B] += inc*1000
 		}
+		active = A;
 		
 		switchSound2();
 		if(pause) { pause = false; }
@@ -157,7 +160,7 @@ function switchClock(x){
 		
 		document.getElementById("pressA").classList.remove("pressed");
 		document.getElementById("pressB").classList.add("pressed");
-		active = A;
+	
 		countDown(A);
 	}
 }
