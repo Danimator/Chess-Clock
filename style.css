@@ -161,3 +161,45 @@ html, body{
 		margin-top: 15vh;
 	}
 }
+
+@media screen and (max-width: 420px){
+	.button{
+		z-index: 1000;
+		font-size: 25px;
+		width: 30px;
+	}
+	#timeA{
+		-webkit-transform: rotate(180deg);
+		-moz-transform: rotate(180deg);
+		-ms-transform: rotate(180deg);
+		-o-transform: rotate(180deg);
+	}
+	.press{
+		width: 90%;
+		height: 41vh;
+		margin-top: 4vh;
+		margin-bottom: 5vh;
+		transform: none;
+		border: none;
+	}
+	.press:hover:not(.pressed){
+		border: none;
+		margin-top: 4vh;
+		margin-bottom: 5vh;
+		transform: none;
+	}
+	.pressed{
+		margin-top: 4vh;
+		margin-bottom: 5vh;
+		transform: none;
+		border: none;
+	}
+	#options{
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		-webkit-transform: translateY(-50%);
+		width: 100%;
+		margin-top: 0px;
+	}
+}
