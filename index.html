@@ -218,6 +218,15 @@
 			hammer1.get('tap').set({time:1});
 			hammer2.get('tap').set({time:1});
 			
+			hammer1.get('press').set({time:1});
+			hammer2.get('press').set({time:1});
+			
+			hammer1.get('pan').set({time:1});
+			hammer2.get('pan').set({time:1});
+			
+			hammer1.get('swipe').set({time:1});
+			hammer2.get('swipe').set({time:1});
+			
 			hammer1.on('tap', function(ev) {
 				switchClock(A);
 			});
