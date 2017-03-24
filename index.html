@@ -215,17 +215,12 @@
 			var hammer1 = new Hammer(document.getElementById("pressA"));
 			var hammer2 = new Hammer(document.getElementById("pressB"));
 			
-			hammer1.get('tap').set({time:1});
-			hammer2.get('tap').set({time:1});
+			hammer1.get('tap').set({time:1000, threshold = 5});
+			hammer2.get('tap').set({time:1000, threshold = 5});
 			
-			hammer1.get('press').set({time:1});
-			hammer2.get('press').set({time:1});
-			
-			hammer1.get('pan').set({time:1});
-			hammer2.get('pan').set({time:1});
-			
-			hammer1.get('swipe').set({time:1});
-			hammer2.get('swipe').set({time:1});
+			hammer1.get('press').set({time:1, threshold = 10});
+			hammer2.get('press').set({time:1, threshold = 10});
+
 			
 			hammer1.on('tap', function(ev) {
 				switchClock(A);
@@ -233,14 +228,6 @@
 			hammer1.on('press', function(ev) {
 				switchClock(A);
 			});
-			hammer1.on('pan', function(ev) {
-				switchClock(A);
-			});
-			hammer1.on('swipe', function(ev) {
-				switchClock(A);
-			});
-
-
 
 			hammer2.on('tap', function(ev) {
 				switchClock(B);
@@ -248,13 +235,8 @@
 			hammer2.on('press', function(ev) {
 				switchClock(B);
 			});
-			hammer2.on('pan', function(ev) {
-				switchClock(B);
-			});
-			hammer2.on('swipe', function(ev) {
-				switchClock(B);
-			});
-			
+
+
 			restart();
 		</script>
 	</body>
