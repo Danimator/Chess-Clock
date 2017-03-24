@@ -214,6 +214,10 @@
 			
 			var hammer1 = new Hammer(document.getElementById("pressA"));
 			var hammer2 = new Hammer(document.getElementById("pressB"));
+			
+			hammer1.get('tap').set({time:1});
+			hammer2.get('tap').set({time:1});
+			
 			hammer1.on('tap', function(ev) {
 				switchClock(A);
 			});
