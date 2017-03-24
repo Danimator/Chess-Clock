@@ -8,8 +8,8 @@ html, body{
 
 .button{
 	padding: 5px;
-	font-size: 70px;
-	width: 70px;
+	font-size: 50px;
+	width: 55px;
 	text-align: center;
 	border-radius: 8px;
 	color: white;
@@ -20,8 +20,8 @@ html, body{
 	margin-top: 0px;
 	margin-bottom: 4px;
 	display: inline-block;
-	margin-left: 10%;
-	margin-right: 10%;
+	margin-left: 8%;
+	margin-right: 8%;
 }
 
 .button:hover{
@@ -133,8 +133,8 @@ html, body{
 		font-size: 30px;
 		width: 40px;
 		padding: 5px;
-		margin-left: 9%;
-		margin-right: 9%;
+		margin-left: 7%;
+		margin-right: 7%;
 	}
 	
 }
@@ -144,8 +144,8 @@ html, body{
 		font-size: 30px;
 		width: 40px;
 		padding: 5px;
-		margin-left: 7%;
-		margin-right: 7%;
+		margin-left: 5%;
+		margin-right: 5%;
 	}
 
 	.press{

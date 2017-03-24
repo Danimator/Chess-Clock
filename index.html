@@ -21,6 +21,9 @@
 				<div id='resetButton' class='button' onclick='restart()'>
 					<i class="fa fa-repeat" aria-hidden="true"></i>
 				</div>
+				<div id='fullscreenButton' class='button' onclick="full();">
+					<i class="fa fa-arrows-alt" aria-hidden="true"></i>
+				</div>
 			</div>
 			<div id='pressA' class='press' onclick='switchClock(0);'>
 				<p id='timeA' class='time'>12:05:21</p>
@@ -177,6 +180,26 @@
 						countDown(B);
 					}
 				}
+			}
+			
+			// Special thanks to the user "Tower" on stackoverflow for the following function.
+			function requestFullScreen(element) {
+				// Supports most browsers and their versions.
+				var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+				if (requestMethod) { // Native full screen.
+					requestMethod.call(element);
+				} else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+					var wscript = new ActiveXObject("WScript.Shell");
+					if (wscript !== null) {
+						wscript.SendKeys("{F11}");
+					}
+				}
+			}
+			
+			function full(){
+				var elem = document.body;
+				requestFullScreen(elem);
 			}
 			
 			restart();
