@@ -211,22 +211,30 @@
 				requestFullScreen(elem);
 			}
 			
-			/*delete Hammer.defaults.cssProps.userSelect;
+			delete Hammer.defaults.cssProps.userSelect;
 			
 			var hammer1 = new Hammer(document.getElementById("pressA"));
 			var hammer2 = new Hammer(document.getElementById("pressB"));
 			
-			hammer1.get('tap').set({time:1000, threshold:5});
-			hammer2.get('tap').set({time:1000, threshold:5});
+			hammer1.get('rotate').set({ enable: true });
+			hammer2.get('rotate').set({ enable: true });
 			
 			hammer1.on('tap', function(ev) {
 				switchClock(A);
 			});
+			
+			hammer1.on('rotate', function(ev) {
+				switchClock(A);
+			});
+
 
 			hammer2.on('tap', function(ev) {
 				switchClock(B);
-			});*/
-
+			});
+			
+			hammer2.on('rotate', function(ev) {
+				switchClock(B);
+			});
 
 			restart();
 		</script>
