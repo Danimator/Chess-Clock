@@ -30,15 +30,6 @@ html, body{
 	cursor: pointer;
 }
 
-
-
-#pauseButton{
-	font-size: 50px;
-	padding-top: 16px;
-	padding-bottom: 16px;
-}
-
-
 #options{
 	text-align: center;
 	margin-top: 5vh;
@@ -61,9 +52,7 @@ html, body{
 	margin-top: 30px;
 	border-radius: 10px;
 	border-bottom: 15px solid rgb(220,220,220);
-	-webkit-box-shadow: 4px 4px 22px -5px rgba(0,0,0,0.53);
-	-moz-box-shadow: 4px 4px 22px -5px rgba(0,0,0,0.53);
-	box-shadow: 0px 8px 22px -5px rgba(0,0,0,0.53);
+
 	transition: 0.2s;
 	color: rgb(32,32,32);
 }
@@ -78,17 +67,15 @@ html, body{
 }
 
 .pressed{
-	border-top: 10px solid rgb(70,70,70);
+	border-top: 10px solid rgb(20,122,91);
 	border-bottom: 0px;
 	border-bottom: 0px;
-	background-color: rgb(128,128,128);
+	background-color: rgb(23,145,108);
 	color: white;
 	transform:translateY(15px);
 	-webkit-transform:translateY(15px);
 	margin-top: 30px;
-	-webkit-box-shadow: inset 4px 4px 22px 0px rgba(0,0,0,0.53);
-	-moz-box-shadow: inset 4px 4px 22px 0px rgba(0,0,0,0.53);
-	box-shadow: inset 4px 4px 22px 0px rgba(0,0,0,0.53);
+
 	color: white;
 }
 
@@ -107,44 +94,47 @@ html, body{
             user-select: none; 
 }
 
+@media screen and (max-width: 1200px) {
+	.time{
+		font-size: 100px;
+	}
+	.button{
+		font-size: 40px;
+		width: 50px;
+		padding: 5px;
+		margin-left: 2%;
+		margin-right: 2%;
+	}
+}
 @media screen and (max-width: 800px) {
 	.press{
 		height: 75%;
 		margin-top: 2vh;
 		border-bottom: 4px solid rgb(220,220,220);
-		box-shadow: none;
-		-webkit-box-shadow: none;
-		-moz-box-shadow: none;
+
 	}
 	.press:hover:not(.pressed){
 		border-bottom: 4px solid rgb(210,210,210);
-		box-shadow: none;
-		-webkit-box-shadow: none;
-		-moz-box-shadow: none;
+
 	}
 	.pressed{
 		margin-top: 2px;
 		border-bottom: none;
-		border-top: 8px solid rgb(70,70,70);
+		border-top: 8px solid rgb(20,122,91);
 		transform:translateY(5px);
 		-webkit-transform:translateY(5px);
-		box-shadow: none;
-		-webkit-box-shadow: none;
-		-moz-box-shadow: none;
+
 	}
 	.time{
-		font-size: 100px;
+		font-size: 80px;
 		margin-top: 20vh;
 	}
 	.button{
 		font-size: 30px;
-		width: 70px;
+		width: 40px;
 		padding: 5px;
 		margin-left: 2%;
 		margin-right: 2%;
-	}
-	#pauseButton{
-		font-size: 30px;
 	}
 	
 }
@@ -152,14 +142,12 @@ html, body{
 @media screen and (max-width: 640px) {
 	.button{
 		font-size: 30px;
-		width: 70px;
+		width: 40px;
 		padding: 5px;
 		margin-left: 2%;
 		margin-right: 2%;
 	}
-	#pauseButton{
-		font-size: 30px;
-	}
+
 	.press{
 		height: 60%;
 		margin-top: 2vh;
