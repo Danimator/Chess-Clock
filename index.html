@@ -108,6 +108,9 @@
 			function switchClock(x){
 				if ((!pause && (active != B && active != END && x==A)) || (pause && active == NONE && x==A)){
 					switchSound();
+					if ("vibrate" in navigator) {
+						navigator.vibrate(100);
+					}
 					if(pause) { pause = false; }
 					document.getElementById("pauseIcon").classList.add("fa-pause");
 					document.getElementById("pauseIcon").classList.remove("fa-play");
@@ -118,6 +121,9 @@
 					countDown(B);
 				} else if((!pause && (active != A && active != END && x==B )) || (pause && active == NONE && x==B)){
 					switchSound();
+					if ("vibrate" in navigator) {
+						navigator.vibrate(100);
+					}
 					if(pause) { pause = false; }
 					document.getElementById("pauseIcon").classList.add("fa-pause");
 					document.getElementById("pauseIcon").classList.remove("fa-play");
