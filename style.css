@@ -295,8 +295,8 @@ p{
 		-moz-transform: rotate(180deg);
 		-ms-transform: rotate(180deg);
 		-o-transform: rotate(180deg);
-		margin-bottom: 15vh;
-		margin-top: 70px;
+		margin-top: 15vh;
+		margin-bottom: 70px;
 	}
 	.press{
 		width: 90%;
