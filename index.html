@@ -217,8 +217,28 @@
 			hammer1.on('tap', function(ev) {
 				switchClock(A);
 			});
+			hammer1.on('press', function(ev) {
+				switchClock(A);
+			});
+			hammer1.on('pan', function(ev) {
+				switchClock(A);
+			});
+			hammer1.on('swipe', function(ev) {
+				switchClock(A);
+			});
+
+
 
 			hammer2.on('tap', function(ev) {
+				switchClock(B);
+			});
+			hammer2.on('press', function(ev) {
+				switchClock(B);
+			});
+			hammer2.on('pan', function(ev) {
+				switchClock(B);
+			});
+			hammer2.on('swipe', function(ev) {
 				switchClock(B);
 			});
 			
