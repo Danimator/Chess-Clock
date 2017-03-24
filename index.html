@@ -34,10 +34,14 @@
 			</div>
 		</div>
 		<script>
-			var switchAud = new Audio('audio/switch.wav');
-
-			function switchSound(){
-				switchAud.play();
+			var switchAud1 = new Audio('audio/switch.wav');
+			var switchAud2 = new Audio('audio/switch.wav');
+			
+			function switchSound1(){
+				switchAud1.play();
+			}
+			function switchSound2(){
+				switchAud2.play();
 			}
 			
 			var pause = false;
@@ -120,7 +124,7 @@
 			
 			function switchClock(x){
 				if ((!pause && (active != B && active != END && x==A)) || (pause && active == NONE && x==A)){
-					switchSound();
+					switchSound1();
 					if(pause) { pause = false; }
 					document.getElementById("pauseIcon").classList.add("fa-pause");
 					document.getElementById("pauseIcon").classList.remove("fa-play");
@@ -130,7 +134,7 @@
 					active = B;
 					countDown(B);
 				} else if((!pause && (active != A && active != END && x==B )) || (pause && active == NONE && x==B)){
-					switchSound();
+					switchSound2();
 					if(pause) { pause = false; }
 					document.getElementById("pauseIcon").classList.add("fa-pause");
 					document.getElementById("pauseIcon").classList.remove("fa-play");
