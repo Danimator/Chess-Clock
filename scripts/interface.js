@@ -259,4 +259,15 @@ hammer2.on('rotate', function(ev) {
 	switchClock(B);
 });
 
+
+document.body.addEventListener("keypress", keySwitch);
+
+function keySwitch(){
+	if(active == A){
+		switchClock(A);
+	} else if(active == B){
+		switchClock(B);
+	}
+}
+
 restart();
