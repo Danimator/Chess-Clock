@@ -215,11 +215,11 @@
 			var hammer1 = new Hammer(document.getElementById("pressA"));
 			var hammer2 = new Hammer(document.getElementById("pressB"));
 			
-			hammer1.get('tap').set({time:1000, threshold = 5});
-			hammer2.get('tap').set({time:1000, threshold = 5});
+			hammer1.get('tap').set({time:1000, threshold:5});
+			hammer2.get('tap').set({time:1000, threshold:5});
 			
-			hammer1.get('press').set({time:1, threshold = 10});
-			hammer2.get('press').set({time:1, threshold = 10});
+			hammer1.get('press').set({time:1, threshold:10});
+			hammer2.get('press').set({time:1, threshold:10});
 
 			
 			hammer1.on('tap', function(ev) {
