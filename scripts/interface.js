@@ -20,6 +20,8 @@ var HR = 60*MIN;
 
 var active = NONE;
 
+var numberOfClicks = 0;
+
 // Represents user-set times for players A & B
 var initTimes = [[0, 5, 0], [0, 5, 0]]; 
 var inc = 0;
@@ -100,23 +102,28 @@ function countDown(x){
 		}
 	} else {
 		if(!pause && (x==active || active == NONE)){
+			clicksCopy = numberOfClicks;
 			setTimeout(function(){
-				times[x] -= 100;
-				var newDisplay = formatTime(times[x]);
-				if(x==A){
-					if(newDisplay[0] == "00"){
-						document.getElementById("timeA").innerHTML = newDisplay[1]+":"+newDisplay[2];
+				// This 'if' statement makes sure that this countdown is cancelled in case the users click twice before 0.1s has passed.
+				// This prevents a bug where one user's clock runs down extremely quickly if one presses both buttons rapidly.
+				if(clicksCopy == numberOfClicks){ 
+					times[x] -= 100;
+					var newDisplay = formatTime(times[x]);
+					if(x==A){
+						if(newDisplay[0] == "00"){
+							document.getElementById("timeA").innerHTML = newDisplay[1]+":"+newDisplay[2];
+						} else {
+							document.getElementById("timeA").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
+						}
 					} else {
-						document.getElementById("timeA").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
+						if(newDisplay[0] == "00"){
+							document.getElementById("timeB").innerHTML = newDisplay[1]+":"+newDisplay[2];
+						} else {
+							document.getElementById("timeB").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
+						}
 					}
-				} else {
-					if(newDisplay[0] == "00"){
-						document.getElementById("timeB").innerHTML = newDisplay[1]+":"+newDisplay[2];
-					} else {
-						document.getElementById("timeB").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
-					}
+					countDown(x);
 				}
-				countDown(x);
 			},100);
 		}
 	}
@@ -124,7 +131,7 @@ function countDown(x){
 
 function switchClock(x){
 	if ((!pause && (active != B && active != END && x==A)) || (pause && active == NONE && x==A)){
-		
+		numberOfClicks += 1;
 		if(active != NONE){
 			times[A] += inc*1000
 		}
@@ -138,6 +145,7 @@ function switchClock(x){
 		active = B;
 		countDown(B);
 	} else if((!pause && (active != A && active != END && x==B )) || (pause && active == NONE && x==B)){
+		numberOfClicks += 1;
 		if(active != NONE){
 			times[B] += inc*1000
 		}
