@@ -77,6 +77,11 @@
 				if ("vibrate" in navigator) {
 					navigator.vibrate([200, 100, 500]);
 				}
+				if(active == A){
+					document.getElementById("pressA").classList.add("lose");
+				} else if(active == B){
+					document.getElementById("pressB").classList.add("lose");
+				}
 				document.getElementById("pressA").classList.add("pressed");
 				document.getElementById("pressB").classList.add("pressed");
 				active = -2;
@@ -139,6 +144,8 @@
 				active = NONE;
 				pause = true;
 				setTimeout(function(){
+					document.getElementById("pressB").classList.remove("lose");
+					document.getElementById("pressA").classList.remove("lose");
 					document.getElementById("pressA").classList.remove("pressed");
 					document.getElementById("pressB").classList.remove("pressed");
 					var newDisplay = formatTime(initTimes[A][0]*HR + initTimes[A][1]*MIN + initTimes[A][2]*SEC);

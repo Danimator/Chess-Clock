@@ -57,6 +57,7 @@ html, body{
 	color: rgb(32,32,32);
 }
 
+
 .press:hover:not(.pressed){
 	border-bottom: 10px solid rgb(210,210,210);
 	background-color: rgb(248,248,248);
@@ -79,7 +80,10 @@ html, body{
 	color: white;
 }
 
-
+.lose{
+	background-color: rgb(143,50,38);
+	border-top: 10px solid rgb(123,27,15);
+}
 
 .time{
 	font-family: 'Roboto', sans-serif;
@@ -127,6 +131,9 @@ html, body{
 		transform:translateY(5px);
 		-webkit-transform:translateY(5px);
 
+	}
+	.lose{
+		border-top: 8px solid rgb(123,27,15);
 	}
 	.time{
 		font-size: 80px;
@@ -199,6 +206,9 @@ html, body{
 		margin-bottom: 5vh;
 		transform: none;
 		border: none;
+	}
+	.lose{
+		border-top: none;
 	}
 	#options{
 		position: absolute;
