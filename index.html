@@ -12,8 +12,62 @@
 	</head>
 	<body>
 		<div id='UI'>
+			<div id='menu'>
+				<div id='menuContent'>
+					<i class="fa fa-times" aria-hidden="true" style='font-size: 40px; position: absolute; right:20%; color: rgb(23,196,143); cursor: pointer;' onclick='toggleMenu();'></i>
+					<h3>Settings</h3>
+					<hr>
+					<h4>Time Control</h4> <br>
+					<div class='timeMenu'>
+						<p><b>Player 1</b></p> 
+						<h3 id='player1time' style='margin-bottom: 7px; margin-top: 7px;'>00:05:00</h3>
+						<div id='hour1'><p>Hours</p></div>
+						<div id='minute1'><p>Minutes</p></div>
+						<div id='second1'><p>Seconds</p></div>
+					</div>
+
+					<div class='timeMenu'>
+						<p><b>Player 2</b></p>
+						<h3 id='player2time' style='margin-bottom: 7px; margin-top: 7px;'>00:05:00</h3>						
+						<div id='hour2'><p>Hours</p></div>
+						<div id='minute2'><p>Minutes</p></div>
+						<div id='second2'><p>Seconds</p></div>
+					</div>
+
+					<hr style='margin-top: 11px;'>	
+					<div id='increment' style='padding-bottom: 50px;'><p>Increment</p><h3 id='incrementDisplay' style='margin-bottom: 7px; margin-top: 7px;'>00s</h3>	</div>		
+					
+					<script>
+						var minChoices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 50, 55];
+						
+						for (var i =0; i<11; i++){
+							document.getElementById('hour1').innerHTML += "<div class='timeSelect' onclick=\'selectHour(" + i + ", 0)\'>" + i.toString() + "</div> \n";
+						}
+						for (var i =0; i<minChoices.length; i+= 1){
+							document.getElementById('minute1').innerHTML += "<div class='timeSelect' onclick=\'selectMinute(" + minChoices[i] + ", 0)\'>" + minChoices[i].toString() + "</div> \n";
+						}
+						for (var i =0; i<60; i+= 5){
+							document.getElementById('second1').innerHTML += "<div class='timeSelect' onclick=\'selectSecond(" + i + ", 0)\'>" + i.toString() + "</div> \n";
+						}
+						
+						for (var i =0; i<11; i++){
+							document.getElementById('hour2').innerHTML += "<div class='timeSelect' onclick=\'selectHour(" + i + ", 1)\'>" + i.toString() + "</div> \n";
+						}
+						for (var i =0; i<minChoices.length; i+= 1){
+							document.getElementById('minute2').innerHTML += "<div class='timeSelect' onclick=\'selectMinute(" + minChoices[i] + ", 1)\'>" + minChoices[i].toString() + "</div> \n";
+						}
+						for (var i =0; i<60; i+= 5){
+							document.getElementById('second2').innerHTML += "<div class='timeSelect' onclick=\'selectSecond(" + i + ", 1)\'>" + i.toString() + "</div> \n";
+						}
+						
+						for (var i =0; i<31; i+= 1){
+							document.getElementById('increment').innerHTML += "<div class='timeSelect' onclick=\'selectInc(" + i + ")\'>" + i.toString() + "</div> \n";
+						}
+					</script>
+				</div>
+			</div>
 			<div id='options'>
-				<div id='menuButton' class='button'>
+				<div id='menuButton' class='button' onclick='toggleMenu();'>
 					<i class="fa fa-cog" aria-hidden="true"></i>
 				</div>
 				<div id='pauseButton' class='button' onclick='pauseGame()'>
@@ -57,7 +111,8 @@
 			var active = NONE;
 			
 			// Represents user-set times for players A & B
-			var initTimes = [[0, 0, 2], [0, 12, 2]]; 
+			var initTimes = [[0, 5, 0], [0, 5, 0]]; 
+			var inc = 0;
 			
 			var times = [2*SEC,2*SEC];
 			
@@ -76,6 +131,41 @@
 					}
 				}
 				return message;
+			}
+			
+			function selectHour(x, player){
+				initTimes[player][0] = x;
+				updateDisplays();
+			}
+			function selectMinute(x, player){
+				initTimes[player][1] = x;
+				updateDisplays();
+			}
+			function selectSecond(x, player){
+				initTimes[player][2] = x;
+				updateDisplays();
+			}
+			
+			function selectInc(x){
+				inc = x;
+				updateDisplays();
+			}
+			
+			function toggleMenu(){
+				document.getElementById("menu").classList.toggle("hiddenMenu");
+			}
+			
+			function updateDisplays(){
+				var message = formatTime(initTimes[A][0]*HR + initTimes[A][1]*MIN + initTimes[A][2]*SEC);
+				document.getElementById("player1time").innerHTML = message[0] + ":" + message[1] + ":" + message[2];
+				message = formatTime(initTimes[B][0]*HR + initTimes[B][1]*MIN + initTimes[B][2]*SEC);
+				document.getElementById("player2time").innerHTML = message[0] + ":" + message[1] + ":" + message[2];
+				
+				document.getElementById("incrementDisplay").innerHTML = inc.toString() +"s";
+				if(inc < 10){
+					document.getElementById("incrementDisplay").innerHTML = "0" + document.getElementById("incrementDisplay").innerHTML;
+				}
+				restart();
 			}
 			
 			function gameEnd(){
@@ -124,6 +214,10 @@
 			
 			function switchClock(x){
 				if ((!pause && (active != B && active != END && x==A)) || (pause && active == NONE && x==A)){
+					
+					if(active != NONE){
+						times[A] += inc*1000
+					}
 					switchSound1();
 					if(pause) { pause = false; }
 					document.getElementById("pauseIcon").classList.add("fa-pause");
@@ -134,6 +228,10 @@
 					active = B;
 					countDown(B);
 				} else if((!pause && (active != A && active != END && x==B )) || (pause && active == NONE && x==B)){
+					if(active != NONE){
+						times[B] += inc*1000
+					}
+					
 					switchSound2();
 					if(pause) { pause = false; }
 					document.getElementById("pauseIcon").classList.add("fa-pause");

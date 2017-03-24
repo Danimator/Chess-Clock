@@ -6,6 +6,48 @@ html, body{
 	background-color: rgb(33,206,153);
 }
 
+#menu{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background-color: white;
+	z-index: 10000;
+	text-align: left;
+	overflow-y: scroll;
+	transition: 0.5s;
+	opacity: 1;
+}
+
+.hiddenMenu{
+	display: none;
+}
+
+#menuContent{
+	margin:auto;
+	margin-top: 80px;
+	width: 60%;
+}
+
+h3{
+	font-family: Roboto, 'sans-serif';
+	font-size: 30px;
+}
+
+h4{
+	font-family: Roboto, 'sans-serif';
+	font-size: 21px;
+	line-height: 80%;
+	margin-bottom: 5px;
+}
+
+p{
+	font-family: Roboto, 'sans-serif';
+	font-size: 17px;
+	margin-bottom: 5px;
+}
+
 .button{
 	padding: 5px;
 	font-size: 50px;
@@ -98,6 +140,69 @@ html, body{
             user-select: none; 
 }
 
+.timeSelect{
+	display: inline-block;
+	padding: 6px;
+	font-size: 17px;
+	border: 1px solid rgb(180,180,180);
+	font-family: Roboto;
+	cursor: pointer;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 5px;
+}
+
+.timeMenu{
+	float: left; 
+	width: 45%; 
+	padding-right: 5%; 
+	padding-bottom: 15px;
+}
+.timeMenu::after{
+	content: "";
+	clear: both;
+	display: block;
+}
+
+
+.timeSelect:hover{
+	background-color: rgb(33,206,153);
+	border: 1px solid rgb(33,206,153);
+	color: white;
+}
+
+.dropdown{
+	position: relative;
+	display: inline-block;
+	font-family: Roboto, 'sans-serif';
+	font-size: 17px;
+	width: 60px;
+}
+
+.dropdownContent{
+	display: none;
+	position: absolute;
+	z-index: 1;
+	text-align: right;
+	background-color: #f9f9f9;
+}
+.dropdown > span{
+	padding: 4px;
+	border: 1px solid rgb(64,64,64);
+	cursor: pointer;
+	background-color: #4CAF50;
+	padding: 16px;
+}
+
+.dropdown:hover .dropdownContent{
+	display: block;
+	text-align: right;
+}
+
+.dropdownItem{
+	color: black;
+    display: block;
+}
 @media screen and (max-width: 1200px) {
 	.time{
 		font-size: 100px;
@@ -114,6 +219,13 @@ html, body{
 	}
 }
 @media screen and (max-width: 800px) {
+	.timeMenu{
+		padding: none;
+		width: 100%;
+	}
+	#menuContent{
+		width: 80%;
+	}
 	.press{
 		height: 75%;
 		margin-top: 2vh;
@@ -136,7 +248,7 @@ html, body{
 		border-top: 8px solid rgb(123,27,15);
 	}
 	.time{
-		font-size: 80px;
+		font-size: 70px;
 		margin-top: 20vh;
 	}
 	.button{
