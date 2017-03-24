@@ -49,7 +49,7 @@
 			var active = NONE;
 			
 			// Represents user-set times for players A & B
-			var initTimes = [[0, 12, 2], [0, 12, 2]]; 
+			var initTimes = [[0, 0, 2], [0, 12, 2]]; 
 			
 			var times = [2*SEC,2*SEC];
 			
@@ -71,6 +71,9 @@
 			}
 			
 			function gameEnd(){
+				if ("vibrate" in navigator) {
+					navigator.vibrate([200, 100, 500]);
+				}
 				document.getElementById("pressA").classList.add("pressed");
 				document.getElementById("pressB").classList.add("pressed");
 				active = -2;
@@ -108,9 +111,6 @@
 			function switchClock(x){
 				if ((!pause && (active != B && active != END && x==A)) || (pause && active == NONE && x==A)){
 					switchSound();
-					if ("vibrate" in navigator) {
-						navigator.vibrate(500);
-					}
 					if(pause) { pause = false; }
 					document.getElementById("pauseIcon").classList.add("fa-pause");
 					document.getElementById("pauseIcon").classList.remove("fa-play");
@@ -121,9 +121,6 @@
 					countDown(B);
 				} else if((!pause && (active != A && active != END && x==B )) || (pause && active == NONE && x==B)){
 					switchSound();
-					if ("vibrate" in navigator) {
-						navigator.vibrate(500);
-					}
 					if(pause) { pause = false; }
 					document.getElementById("pauseIcon").classList.add("fa-pause");
 					document.getElementById("pauseIcon").classList.remove("fa-play");
