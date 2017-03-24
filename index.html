@@ -7,6 +7,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Orbitron|Roboto" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src="scripts/hammer.min.js"></script>
 		<script src="scripts/hammer-time.min.js"></script>
 	</head>
 	<body>
@@ -208,6 +209,18 @@
 				var elem = document.body;
 				requestFullScreen(elem);
 			}
+			
+			delete Hammer.defaults.cssProps.userSelect;
+			
+			var hammer1 = new Hammer(document.getElementById("pressA"));
+			var hammer2 = new Hammer(document.getElementById("pressB"));
+			hammer1.on('tap', function(ev) {
+				switchClock(A);
+			});
+
+			hammer2.on('tap', function(ev) {
+				switchClock(B);
+			});
 			
 			restart();
 		</script>
