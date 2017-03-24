@@ -107,7 +107,7 @@ function countDown(x){
 				// This 'if' statement makes sure that this countdown is cancelled in case the users click twice before 0.1s has passed.
 				// This prevents a bug where one user's clock runs down extremely quickly if one presses both buttons rapidly.
 				if(clicksCopy == numberOfClicks){ 
-					times[x] -= 100;
+					times[x] -= 10;
 					var newDisplay = formatTime(times[x]);
 					if(x==A){
 						if(newDisplay[0] == "00"){
@@ -124,7 +124,7 @@ function countDown(x){
 					}
 					countDown(x);
 				}
-			},100);
+			},10);
 		}
 	}
 }
