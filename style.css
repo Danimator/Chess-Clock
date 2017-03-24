@@ -105,6 +105,9 @@ html, body{
 		margin-left: 2%;
 		margin-right: 2%;
 	}
+	.press{
+		height: 75vh;
+	}
 }
 @media screen and (max-width: 800px) {
 	.press{
@@ -149,9 +152,9 @@ html, body{
 	}
 
 	.press{
-		height: 60%;
-		margin-top: 2vh;
-		margin-top: 3px;
+		height: 58vh;
+		margin-top: 4vh;
+		padding-top: 10vh;
 	}
 	.pressed{
 		margin-top: 5px;
@@ -173,6 +176,8 @@ html, body{
 		-moz-transform: rotate(180deg);
 		-ms-transform: rotate(180deg);
 		-o-transform: rotate(180deg);
+		margin-bottom: 15vh;
+		margin-top: 70px;
 	}
 	.press{
 		width: 90%;
@@ -181,6 +186,7 @@ html, body{
 		margin-bottom: 5vh;
 		transform: none;
 		border: none;
+		padding-top: 0px;
 	}
 	.press:hover:not(.pressed){
 		border: none;
