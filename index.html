@@ -78,14 +78,10 @@
 				if ("vibrate" in navigator) {
 					navigator.vibrate([200, 100, 500]);
 				}
-				if(active == A){
-					document.getElementById("pressA").classList.add("lose");
-				} else if(active == B){
-					document.getElementById("pressB").classList.add("lose");
-				}
+				pause = false;
+				active = -2;
 				document.getElementById("pressA").classList.add("pressed");
 				document.getElementById("pressB").classList.add("pressed");
-				active = -2;
 				document.getElementById("pauseIcon").classList.remove("fa-pause");
 				document.getElementById("pauseIcon").classList.add("fa-play");
 			}
@@ -93,6 +89,11 @@
 			function countDown(x){
 				if(times[x]==0){
 					gameEnd();
+					if(x == A){
+						document.getElementById("pressA").classList.add("lose");
+					} else if(x == B){
+						document.getElementById("pressB").classList.add("lose");
+					}
 				} else {
 					if(!pause && (x==active || active == NONE)){
 						setTimeout(function(){
@@ -210,7 +211,7 @@
 				requestFullScreen(elem);
 			}
 			
-			delete Hammer.defaults.cssProps.userSelect;
+			/*delete Hammer.defaults.cssProps.userSelect;
 			
 			var hammer1 = new Hammer(document.getElementById("pressA"));
 			var hammer2 = new Hammer(document.getElementById("pressB"));
@@ -218,23 +219,13 @@
 			hammer1.get('tap').set({time:1000, threshold:5});
 			hammer2.get('tap').set({time:1000, threshold:5});
 			
-			hammer1.get('press').set({time:1, threshold:10});
-			hammer2.get('press').set({time:1, threshold:10});
-
-			
 			hammer1.on('tap', function(ev) {
-				switchClock(A);
-			});
-			hammer1.on('press', function(ev) {
 				switchClock(A);
 			});
 
 			hammer2.on('tap', function(ev) {
 				switchClock(B);
-			});
-			hammer2.on('press', function(ev) {
-				switchClock(B);
-			});
+			});*/
 
 
 			restart();
