@@ -335,7 +335,14 @@ var hammer2 = new Hammer(document.getElementById("pressB"));
 hammer1.get('rotate').set({ enable: true });
 hammer2.get('rotate').set({ enable: true });
 
+hammer1.get('press').set({ time: 1 });
+hammer2.get('press').set({ time: 1 });
+
 hammer1.on('tap', function(ev) {
+	switchClock(A);
+});
+
+hammer1.on('press', function(ev) {
 	switchClock(A);
 });
 
@@ -349,6 +356,10 @@ hammer1.on('swipe', function(ev){
 
 
 hammer2.on('tap', function(ev) {
+	switchClock(B);
+});
+
+hammer2.on('press', function(ev) {
 	switchClock(B);
 });
 
