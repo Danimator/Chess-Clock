@@ -171,6 +171,12 @@ p{
 	color: white;
 }
 
+.timeSelectActivated{
+	background-color: rgb(33,206,153);
+	border: 1px solid rgb(33,206,153);
+	color: white;
+}
+
 .dropdown{
 	position: relative;
 	display: inline-block;
@@ -203,6 +209,15 @@ p{
 	color: black;
     display: block;
 }
+
+#exitMenu{
+	font-size: 40px; 
+	position: absolute; 
+	right:20%; 
+	color: rgb(23,196,143); 
+	cursor: pointer;
+}
+
 @media screen and (max-width: 1200px) {
 	.time{
 		font-size: 100px;
@@ -219,6 +234,9 @@ p{
 	}
 }
 @media screen and (max-width: 800px) {
+	#exitMenu{
+		right: 10%;
+	}
 	.timeMenu{
 		padding: none;
 		width: 100%;
@@ -290,14 +308,6 @@ p{
 		font-size: 25px;
 		width: 30px;
 	}
-	#timeA{
-		-webkit-transform: rotate(180deg);
-		-moz-transform: rotate(180deg);
-		-ms-transform: rotate(180deg);
-		-o-transform: rotate(180deg);
-		margin-top: 15vh;
-		margin-bottom: 70px;
-	}
 	.press{
 		width: 90%;
 		height: 41vh;
@@ -306,6 +316,23 @@ p{
 		transform: none;
 		border: none;
 		padding-top: 0px;
+	}
+	.time{
+		-webkit-transform:translateY(-50%);
+		-moz-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		-o-transform: translateY(-50%);
+		margin-top: 20vh;
+		transform: translateY(-50%);
+	}
+	#timeA{
+		-webkit-transform: rotate(180deg) translateY(50%);
+		-moz-transform: rotate(180deg) translateY(50%);
+		-ms-transform: rotate(180deg) translateY(50%);
+		-o-transform: rotate(180deg) translateY(50%);
+		margin-bottom: 20vh;
+		transform: rotate(180deg) translateY(50%);
+		margin-bottom: 0px;
 	}
 	.press:hover:not(.pressed){
 		border: none;

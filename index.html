@@ -14,7 +14,7 @@
 		<div id='UI'>
 			<div id='menu' class='hiddenMenu'>
 				<div id='menuContent'>
-					<i class="fa fa-times" aria-hidden="true" style='font-size: 40px; position: absolute; right:20%; color: rgb(23,196,143); cursor: pointer;' onclick='toggleMenu();'></i>
+					<i class="fa fa-times" aria-hidden="true" id='exitMenu' onclick='toggleMenu();'></i>
 					<h3>Settings</h3>
 					<hr>
 					<h4>Time Control</h4> <br>
@@ -35,33 +35,45 @@
 					</div>
 
 					<hr style='margin-top: 11px;'>	
-					<div id='increment' style='padding-bottom: 50px;'><p>Increment</p><h3 id='incrementDisplay' style='margin-bottom: 7px; margin-top: 7px;'>00s</h3>	</div>		
+					<p><b>Increment</b></p>
+					<h3 id='incrementDisplay' style='margin-bottom: 7px; margin-top: 7px;'>00s</h3>
+					<p>Type</p>
+					<div class='timeSelect timeSelectActivated' id='incType0' onclick="selectIncType(0);">Fischer</div>
+					<div class='timeSelect' id='incType1' onclick="selectIncType(1);">Bronstein</div>
+					<div class='timeSelect' id='incType2' onclick="selectIncType(2);">Simple</div>
+					<p>Seconds</p>
+					<div id='increment' style='padding-bottom: 50px;'>	</div>		
 					
 					<script>
 						var minChoices = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 50, 55];
-						
+						function quickFormat(x){
+							if(x < 10){
+								return "0" + x.toString();
+							} 
+							return x.toString();
+						}
 						for (var i =0; i<11; i++){
-							document.getElementById('hour1').innerHTML += "<div class='timeSelect' onclick=\'selectHour(" + i + ", 0)\'>" + i.toString() + "</div> \n";
+							document.getElementById('hour1').innerHTML += "<div class='timeSelect' id=\'0h" + i + "\' onclick=\'selectHour(" + i + ", 0)\'>" + quickFormat(i) + "</div> \n";
 						}
 						for (var i =0; i<minChoices.length; i+= 1){
-							document.getElementById('minute1').innerHTML += "<div class='timeSelect' onclick=\'selectMinute(" + minChoices[i] + ", 0)\'>" + minChoices[i].toString() + "</div> \n";
+							document.getElementById('minute1').innerHTML += "<div class='timeSelect' id=\'0m" + minChoices[i] + "\' onclick=\'selectMinute(" + minChoices[i] + ", 0)\'>" + quickFormat(minChoices[i].toString()) + "</div> \n";
 						}
 						for (var i =0; i<60; i+= 5){
-							document.getElementById('second1').innerHTML += "<div class='timeSelect' onclick=\'selectSecond(" + i + ", 0)\'>" + i.toString() + "</div> \n";
+							document.getElementById('second1').innerHTML += "<div class='timeSelect' id=\'0s" + i + "\' onclick=\'selectSecond(" + i + ", 0)\'>" + quickFormat(i) + "</div> \n";
 						}
 						
 						for (var i =0; i<11; i++){
-							document.getElementById('hour2').innerHTML += "<div class='timeSelect' onclick=\'selectHour(" + i + ", 1)\'>" + i.toString() + "</div> \n";
+							document.getElementById('hour2').innerHTML += "<div class='timeSelect' id=\'1h" + i + "\' onclick=\'selectHour(" + i + ", 1)\'>" + quickFormat(i) + "</div> \n";
 						}
 						for (var i =0; i<minChoices.length; i+= 1){
-							document.getElementById('minute2').innerHTML += "<div class='timeSelect' onclick=\'selectMinute(" + minChoices[i] + ", 1)\'>" + minChoices[i].toString() + "</div> \n";
+							document.getElementById('minute2').innerHTML += "<div class='timeSelect' id=\'1m" + minChoices[i] + "\' onclick=\'selectMinute(" + minChoices[i] + ", 1)\'>" + quickFormat(minChoices[i]) + "</div> \n";
 						}
 						for (var i =0; i<60; i+= 5){
-							document.getElementById('second2').innerHTML += "<div class='timeSelect' onclick=\'selectSecond(" + i + ", 1)\'>" + i.toString() + "</div> \n";
+							document.getElementById('second2').innerHTML += "<div class='timeSelect' id=\'1s" + i + "\' onclick=\'selectSecond(" + i + ", 1)\'>" + quickFormat(i) + "</div> \n";
 						}
 						
 						for (var i =0; i<31; i+= 1){
-							document.getElementById('increment').innerHTML += "<div class='timeSelect' onclick=\'selectInc(" + i + ")\'>" + i.toString() + "</div> \n";
+							document.getElementById('increment').innerHTML += "<div class='timeSelect' id=\'inc" + i + "\' onclick=\'selectInc(" + i + ")\'>" + quickFormat(i) + "</div> \n";
 						}
 					</script>
 				</div>
