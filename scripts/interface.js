@@ -164,12 +164,24 @@ function switchClock(x){
 		numberOfClicks += 1;
 		if(active != NONE && incrementType == 0){
 			times[A] += inc*1000
+			
+			// Small bug fix, where the first two 'actual' presses would allow
+			// the countdown to go once after switch is pressed.
+			if(numberOfClicks == 2 || numberOfClicks == 3){
+				times[A] += timerWait;
+			}
 		}
 		if(active != NONE && incrementType == 1){
 			if(previousTimes[A] - times[A] < inc*1000){
 				times[A] = previousTimes[A];
 			} else{
 				times[A] += inc*1000;
+			}
+			
+			// Small bug fix, where the first two 'actual' presses would allow
+			// the countdown to go once after switch is pressed.
+			if(numberOfClicks == 2 || numberOfClicks == 3){
+				times[A] += timerWait;
 			}
 		}
 		previousTimes[A] = times[A];
@@ -196,12 +208,24 @@ function switchClock(x){
 		numberOfClicks += 1;
 		if(active != NONE && incrementType == 0){
 			times[B] += inc*1000
+			
+			// Small bug fix, where the first two 'actual' presses would allow
+			// the countdown to go once after switch is pressed.
+			if(numberOfClicks == 2 || numberOfClicks == 3){
+				times[B] += timerWait;
+			}
 		}
 		if(active != NONE && incrementType == 1){
 			if(previousTimes[B] - times[B] < inc*1000){
 				times[B] = previousTimes[B];
 			} else{
 				times[B] += inc*1000;
+			}
+			
+			// Small bug fix, where the first two 'actual' presses would allow
+			// the countdown to go once after switch is pressed.
+			if(numberOfClicks == 2 || numberOfClicks == 3){
+				times[B] += timerWait;
 			}
 		}
 		
@@ -316,6 +340,10 @@ hammer1.on('rotate', function(ev) {
 	switchClock(A);
 });
 
+hammer1.on('swipe', function(ev){
+	switchClock(A);
+});
+
 
 hammer2.on('tap', function(ev) {
 	switchClock(B);
@@ -324,6 +352,10 @@ hammer2.on('tap', function(ev) {
 hammer2.on('rotate', function(ev) {
 	switchClock(B);
 });
+hammer2.on('swipe', function(ev){
+	switchClock(B);
+});
+
 
 
 document.body.addEventListener("keypress", keySwitch);
