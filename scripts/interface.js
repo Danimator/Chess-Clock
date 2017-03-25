@@ -18,7 +18,7 @@ var SEC = 1000;
 var MIN = 60*SEC;
 var HR = 60*MIN;
 
-var timerWait = 10; // Defines amount of milliseconds waited before checking time again
+var timerWait = 5; // Defines amount of milliseconds waited before checking time again
 
 var active = NONE;
 
@@ -50,8 +50,15 @@ function formatTime(x){
 	minutes = Math.floor(minutes/MIN);
 	seconds = Math.floor(seconds/SEC);
 	
-	var message = [hours.toString(), minutes.toString(), seconds.toString()];
+	var milliseconds = x%SEC;
+	
+	var message = [hours.toString(), minutes.toString(), seconds.toString(), milliseconds.toString()];
 
+	
+	while(message[3].length < 3){
+		message[3] = "0" + message[3];
+	}
+	
 	for (var i =0; i<3; i++){
 		if(message[i].length < 2){
 			message[i] = "0" + message[i];
@@ -100,6 +107,7 @@ function toggleMenu(){
 function updateDisplays(){
 	var message = formatTime(initTimes[A][0]*HR + initTimes[A][1]*MIN + initTimes[A][2]*SEC);
 	document.getElementById("player1time").innerHTML = message[0] + ":" + message[1] + ":" + message[2];
+	
 	message = formatTime(initTimes[B][0]*HR + initTimes[B][1]*MIN + initTimes[B][2]*SEC);
 	document.getElementById("player2time").innerHTML = message[0] + ":" + message[1] + ":" + message[2];
 	
@@ -107,6 +115,7 @@ function updateDisplays(){
 	if(inc < 10){
 		document.getElementById("incrementDisplay").innerHTML = "0" + document.getElementById("incrementDisplay").innerHTML;
 	}
+
 	restart();
 }
 
@@ -123,7 +132,7 @@ function gameEnd(){
 }
 
 function countDown(x){
-	if(times[x]==0){
+	if(times[x]<=0){
 		gameEnd();
 		if(x == A){
 			document.getElementById("pressA").classList.add("lose");
@@ -145,12 +154,14 @@ function countDown(x){
 						} else {
 							document.getElementById("timeA").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
 						}
+						document.getElementById("milliA").innerHTML = newDisplay[3];
 					} else {
 						if(newDisplay[0] == "00"){
 							document.getElementById("timeB").innerHTML = newDisplay[1]+":"+newDisplay[2];
 						} else {
 							document.getElementById("timeB").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
 						}
+						document.getElementById("milliB").innerHTML = newDisplay[3];
 					}
 					countDown(x);
 				}
@@ -164,12 +175,6 @@ function switchClock(x){
 		numberOfClicks += 1;
 		if(active != NONE && incrementType == 0){
 			times[A] += inc*1000
-			
-			// Small bug fix, where the first two 'actual' presses would allow
-			// the countdown to go once after switch is pressed.
-			if(numberOfClicks == 2 || numberOfClicks == 3){
-				times[A] += timerWait;
-			}
 		}
 		if(active != NONE && incrementType == 1){
 			if(previousTimes[A] - times[A] < inc*1000){
@@ -177,13 +182,14 @@ function switchClock(x){
 			} else{
 				times[A] += inc*1000;
 			}
-			
-			// Small bug fix, where the first two 'actual' presses would allow
-			// the countdown to go once after switch is pressed.
-			if(numberOfClicks == 2 || numberOfClicks == 3){
-				times[A] += timerWait;
-			}
 		}
+		
+		// Small bug fix, where the first two 'actual' presses would allow
+		// the countdown to go once after switch is pressed.
+		if(numberOfClicks == 2 || numberOfClicks == 3){
+			times[A] += timerWait;
+		}
+		
 		previousTimes[A] = times[A];
 		active = B;
 		switchSound1();
@@ -208,12 +214,6 @@ function switchClock(x){
 		numberOfClicks += 1;
 		if(active != NONE && incrementType == 0){
 			times[B] += inc*1000
-			
-			// Small bug fix, where the first two 'actual' presses would allow
-			// the countdown to go once after switch is pressed.
-			if(numberOfClicks == 2 || numberOfClicks == 3){
-				times[B] += timerWait;
-			}
 		}
 		if(active != NONE && incrementType == 1){
 			if(previousTimes[B] - times[B] < inc*1000){
@@ -221,12 +221,12 @@ function switchClock(x){
 			} else{
 				times[B] += inc*1000;
 			}
-			
-			// Small bug fix, where the first two 'actual' presses would allow
-			// the countdown to go once after switch is pressed.
-			if(numberOfClicks == 2 || numberOfClicks == 3){
-				times[B] += timerWait;
-			}
+		}
+		
+		// Small bug fix, where the first two 'actual' presses would allow
+		// the countdown to go once after switch is pressed.
+		if(numberOfClicks == 2 || numberOfClicks == 3){
+			times[B] += timerWait;
 		}
 		
 		previousTimes[B] = times[B];
@@ -269,6 +269,7 @@ function restart(){
 		} else {
 			document.getElementById("timeA").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
 		}
+		document.getElementById("milliA").innerHTML = newDisplay[3];
 		
 		newDisplay = formatTime(initTimes[B][0]*HR + initTimes[B][1]*MIN + initTimes[B][2]*SEC);
 		times[B] = initTimes[B][0]*HR + initTimes[B][1]*MIN + initTimes[B][2]*SEC;
@@ -278,9 +279,11 @@ function restart(){
 		} else {
 			document.getElementById("timeB").innerHTML = newDisplay[0] +":"+newDisplay[1]+":"+newDisplay[2];
 		}
+		document.getElementById("milliB").innerHTML = newDisplay[3];
 		document.getElementById("pauseIcon").classList.remove("fa-pause");
 		document.getElementById("pauseIcon").classList.add("fa-play");
-	}, 101);
+		numberOfClicks = 0;
+	}, 11);
 }
 
 function pauseGame(){

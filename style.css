@@ -139,6 +139,19 @@ p{
         -ms-user-select: none; 
             user-select: none; 
 }
+.milli{
+	font-size: 40px;
+	-webkit-touch-callout: none; 
+    -webkit-user-select: none; 
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none; 
+            user-select: none; 
+	font-family: 'Roboto', sans-serif;
+	margin-top: 0px;
+	text-align: right;
+	margin-right: 27%;
+}
 
 .timeSelect{
 	display: inline-block;
@@ -232,6 +245,10 @@ p{
 	.press{
 		height: 75vh;
 	}
+	.milli{
+		font-size: 26px;
+		margin-right: 25%;
+	}
 }
 @media screen and (max-width: 800px) {
 	#exitMenu{
@@ -268,6 +285,10 @@ p{
 	.time{
 		font-size: 70px;
 		margin-top: 20vh;
+	}
+	.milli{
+		font-size: 22px;
+		margin-right: 23%;
 	}
 	.button{
 		font-size: 30px;
@@ -325,14 +346,20 @@ p{
 		margin-top: 20vh;
 		transform: translateY(-50%);
 	}
-	#timeA{
-		-webkit-transform: rotate(180deg) translateY(50%);
-		-moz-transform: rotate(180deg) translateY(50%);
-		-ms-transform: rotate(180deg) translateY(50%);
-		-o-transform: rotate(180deg) translateY(50%);
-		margin-bottom: 20vh;
-		transform: rotate(180deg) translateY(50%);
-		margin-bottom: 0px;
+	.milli{
+		webkit-transform:translateY(-100%);
+		-moz-transform: translateY(-100%);
+		-ms-transform: translateY(-100%);
+		-o-transform: translateY(-100%);
+		transform: translateY(-100%);
+		margin-top: -20px;
+	}
+	#pressA{
+		-webkit-transform: rotate(180deg);
+		-moz-transform: rotate(180deg);
+		-ms-transform: rotate(180deg);
+		-o-transform: rotate(180deg);
+		transform: rotate(180deg);
 	}
 	.press:hover:not(.pressed){
 		border: none;
