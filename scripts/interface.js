@@ -18,7 +18,7 @@ var SEC = 1000;
 var MIN = 60*SEC;
 var HR = 60*MIN;
 
-var timerWait = 5; // Defines amount of milliseconds waited before checking time again
+var timerWait = 67; // Defines amount of milliseconds waited before checking time again
 
 var active = NONE;
 
@@ -133,6 +133,16 @@ function gameEnd(){
 
 function countDown(x){
 	if(times[x]<=0){
+		times[x] = 0;
+		
+		// Small trick to hide negative time
+		if(x == A){
+			document.getElementById("timeA").innerHTML = "00:00";
+			document.getElementById("milliA").innerHTML = "000";
+		} else {
+			document.getElementById("timeB").innerHTML = "00:00";
+			document.getElementById("milliB").innerHTML = "000";
+		}
 		gameEnd();
 		if(x == A){
 			document.getElementById("pressA").classList.add("lose");
