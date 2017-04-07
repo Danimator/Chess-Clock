@@ -18,7 +18,7 @@ var SEC = 1000;
 var MIN = 60*SEC;
 var HR = 60*MIN;
 
-var timerWait = 57; // Defines amount of milliseconds waited before checking time again
+var timerWait = 37; // Defines amount of milliseconds waited before checking time again
 
 // Special thanks to an answer by sweets-BlingBling on stackoverflow 
 // at http://stackoverflow.com/questions/3514784/what-is-the-best-way-to-detect-a-mobile-device-in-jquery for
@@ -31,7 +31,7 @@ if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine
 
 if(!isMobile){
 	// Faster speed on non-mobile devices, as processing power is better.
-	timerWait = 31;
+	timerWait = 21;
 }
 
 var active = NONE;
@@ -167,7 +167,7 @@ function countDown(x){
 		if(!pause && (x==active || active == NONE)){
 			clicksCopy = numberOfClicks;
 			setTimeout(function(){
-				// This 'if' statement makes sure that this countdown is cancelled in case the users click twice before 0.1s has passed.
+				// This 'if' statement makes sure that this countdown is cancelled in case the users click twice before timerWait ms has passed.
 				// This prevents a bug where one user's clock runs down extremely quickly if one presses both buttons rapidly.
 				if(clicksCopy == numberOfClicks){ 
 					times[x] -= timerWait;
@@ -187,7 +187,9 @@ function countDown(x){
 						}
 						document.getElementById("milliB").innerHTML = newDisplay[3];
 					}
-					countDown(x);
+					if(clicksCopy == numberOfClicks){ 
+						countDown(x);
+					}
 				}
 			},timerWait);
 		}
